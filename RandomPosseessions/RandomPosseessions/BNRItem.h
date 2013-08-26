@@ -14,6 +14,9 @@
     NSString *serialNumber;
     int valueInDollars;
     NSDate *dateCreated;
+    
+    BNRItem *containedItem;
+    __weak BNRItem *container;
 }
 
 - (id)initWithItemName:(NSString *)name
@@ -31,6 +34,12 @@
 
 -(void)setValueInDollars:(int)i;
 -(int)valueInDollars;
+
+-(void)setContainedItem:(BNRItem *)contained;
+-(BNRItem *)containedItem;
+
+-(void)setContainer:(BNRItem *)c;
+-(BNRItem *)container;
 
 -(NSDate *)dateCreated;
 

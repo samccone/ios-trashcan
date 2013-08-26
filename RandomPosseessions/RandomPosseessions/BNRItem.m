@@ -10,9 +10,35 @@
 
 @implementation BNRItem
 
+-(BNRItem *)containedItem
+{
+    return containedItem;
+}
+
+-(BNRItem *)container
+{
+    return container;
+}
+
+-(void)setContainedItem:(BNRItem *)contained
+{
+    containedItem = contained;
+    [contained setContainer:self];
+}
+
+-(void)setContainer:(BNRItem *)c
+{
+    container = c;
+}
+
 - (id)init
 {
     return [self initWithItemName:@"item" valueInDollars:0 serialNumber:@"N/A"];
+}
+
+-(void)dealloc
+{
+    NSLog(@"destroying %@", self);
 }
 
 - (id)initWithItemName:(NSString *)name valueInDollars:(int)value serialNumber:(NSString *)sNumber
