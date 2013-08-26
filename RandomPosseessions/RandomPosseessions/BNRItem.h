@@ -20,6 +20,9 @@
         valueInDollars:(int) value
         serialNumber:(NSString *)sNumber;
 
+- (id) initWithItemNameAndSerial:(NSString *)name
+    serialNumber:(NSString *)sNumber;
+
 - (void)setItemName:(NSString *)str;
 - (NSString *)itemName;
 

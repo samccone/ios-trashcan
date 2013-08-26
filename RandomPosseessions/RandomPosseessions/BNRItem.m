@@ -29,6 +29,18 @@
     
     return self;
 }
+
+- (id)initWithItemNameAndSerial:(NSString *)name serialNumber:(NSString *)sNumber
+{
+    self = [super init];
+    
+    if (self) {
+        [self setSerialNumber:sNumber];
+        [self setItemName:name];
+    }
+    
+    return self;
+}
 - (NSString *)description
 {
     NSString *descriptionString =

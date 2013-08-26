@@ -13,9 +13,15 @@ int main(int argc, const char * argv[])
 {
 
     @autoreleasepool {
-        NSLog(@"%@", [BNRItem randomItem]);
-        NSLog(@"%@", [BNRItem randomItem]);
-        NSLog(@"%@", [BNRItem randomItem]);        
+        NSMutableArray *items = [[NSMutableArray alloc] init];
+        
+        for(int i = 0; i < 10; ++i) {
+            [items addObject:[BNRItem randomItem]];
+        }
+        
+        for(BNRItem *item in items) {
+            NSLog(@"%@", item);
+        }
     }
     
     return 0;
