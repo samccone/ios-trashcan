@@ -10,26 +10,12 @@
 
 @implementation BNRItem
 
--(BNRItem *)containedItem
-{
-    return containedItem;
-}
-
--(BNRItem *)container
-{
-    return container;
-}
-
--(void)setContainedItem:(BNRItem *)contained
-{
-    containedItem = contained;
-    [contained setContainer:self];
-}
-
--(void)setContainer:(BNRItem *)c
-{
-    container = c;
-}
+@synthesize containedItem;
+@synthesize container;
+@synthesize itemName;
+@synthesize valueInDollars;
+@synthesize serialNumber;
+@synthesize dateCreated;
 
 - (id)init
 {
@@ -67,6 +53,13 @@
     
     return self;
 }
+
+- (void) setContainedItem:(BNRItem *)i
+{
+    containedItem = i;
+    [i setContainer:self];
+}
+
 - (NSString *)description
 {
     NSString *descriptionString =
@@ -77,41 +70,6 @@
         dateCreated];
     
     return descriptionString;
-}
-
--(void)setItemName:(NSString *)str
-{
-    itemName = str;
-}
-
--(NSString *)itemName
-{
-    return itemName;
-}
-
--(void)setSerialNumber:(NSString *)str
-{
-    serialNumber = str;
-}
-
--(NSString *)serialNumber
-{
-    return serialNumber;
-}
-
--(void)setValueInDollars:(int)i
-{
-    valueInDollars = i;
-}
-
--(int)valueInDollars
-{
-    return valueInDollars;
-}
-
--(NSDate *)dateCreated
-{
-    return dateCreated;
 }
 
 +(id)randomItem
