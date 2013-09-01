@@ -12,14 +12,41 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    CGRect screenRect = [[self window] bounds];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:screenRect];
+    
+    [[self window] addSubview:scrollView];
+    
+    CGRect bigScreen = screenRect;
+    
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    HypnosisView *hypnosisView = [[HypnosisView alloc] initWithFrame:self.window.frame];
-    [self.window addSubview:hypnosisView];
+    hypnosisView = [[HypnosisView alloc] initWithFrame:screenRect];
+    [scrollView addSubview:hypnosisView];
+
+    [scrollView setContentSize:bigScreen.size];
+    [scrollView setMaximumZoomScale:5];
+    [scrollView setMinimumZoomScale:1];
+    [scrollView setDelegate:self];
+    BOOL success = [hypnosisView becomeFirstResponder];
+    
+    if (success) {
+        NSLog(@"became first responder");
+    } else {
+        NSLog(@"error did not become first responder");
+    }
     return YES;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return hypnosisView;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

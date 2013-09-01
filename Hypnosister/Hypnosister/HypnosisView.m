@@ -9,6 +9,7 @@
 #import "HypnosisView.h"
 
 @implementation HypnosisView
+@synthesize circleColor;
 
 -(id)initWithFrame:(CGRect)frame
 {
@@ -16,9 +17,23 @@
     
     if (self) {
         [self setBackgroundColor:[UIColor clearColor]];
+        [self setCircleColor:[UIColor lightGrayColor]];
     }
     
     return self;
+}
+
+-(BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+
+-(void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake) {
+        [self setCircleColor:[UIColor redColor]];
+        [self setNeedsDisplay];
+    }
 }
 
 -(void)drawRect:(CGRect)rect
@@ -36,12 +51,26 @@
     
     CGContextSetLineWidth(ctx, 5);
     
+    NSArray *colors = [[NSArray alloc] initWithObjects: [UIColor redColor], [UIColor blueColor], [UIColor orangeColor], Nil];
+    
     for(float currentRadius = maxRadius; currentRadius > 0; currentRadius -= 20) {
-        [[UIColor lightGrayColor] setStroke];
+        [[colors objectAtIndex:rand()%[colors count]] setStroke];
         CGContextAddArc(ctx, center.x, center.y, currentRadius, 0, 2*M_PI, YES);
         CGContextStrokePath(ctx);
     }
     
+    NSString *text = @"you are sleepy";
+    
+    UIFont *font = [UIFont boldSystemFontOfSize:28];
+    
+    CGRect textRect;
+    
+    textRect.size = [text sizeWithFont:font];
+    textRect.origin.x = center.x - textRect.size.width / 2;
+    textRect.origin.y = center.y - textRect.size.height / 2;
 
+    [[UIColor blackColor] setFill];
+    
+    [text drawInRect:textRect withFont:font];
 }
 @end
